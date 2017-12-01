@@ -1,6 +1,7 @@
 package control;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.Usuario;
 import persistence.UsuarioDao;
 
-@WebServlet({"/ControleUsuario","/cadastrar.htm"})
+@WebServlet({"/ControleUsuario","/cadastrar.htm","/listar.htm"})
 public class ControleUsuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -48,6 +49,17 @@ public class ControleUsuario extends HttpServlet {
 				
 				UsuarioDao ud = new UsuarioDao();
 				ud.cadastrar(u);
+				request.setAttribute("msg", "Usuário "+nome+" cadastrado com sucesso!" );
+				request.getRequestDispatcher("listar.jsp").forward(request, response);
+				
+			}
+			
+			else if ("/listar.htm".equalsIgnoreCase(url)) {
+				
+				UsuarioDao ud = new UsuarioDao();
+				List<Usuario> lista = ud.listar();
+				request.setAttribute("lista", lista);
+				request.getRequestDispatcher("listar.jsp").forward(request, response);
 				
 				
 			}

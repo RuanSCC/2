@@ -1,5 +1,8 @@
 package persistence;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import model.Usuario;
 
 public class UsuarioDao extends Dao {
@@ -15,6 +18,23 @@ public class UsuarioDao extends Dao {
 		stmt.execute();
 		
 		close();
+	}
+	
+	public List<Usuario> listar()throws Exception{
+		open();
+		stmt = con.prepareStatement("select * from usuario");
+		rs= stmt.executeQuery();
+		
+		List<Usuario> lista = new ArrayList<Usuario>();
+		while (rs.next()) {
+		
+			Usuario u = new Usuario(rs.getInt("idUsuario"), rs.getString("nome"), rs.getString("sobrenome"), rs.getString("email"), rs.getInt("idade"));
+			lista.add(u);
+			
+		}
+		
+		close();
+		return lista;
 	}
 
 }
