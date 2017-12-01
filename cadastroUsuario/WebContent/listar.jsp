@@ -15,10 +15,10 @@
 	<a href="index.jsp">Voltar</a>
 	<hr>
 
-
 	<form action="listar.htm" method="post">
 		<input type="submit" value="LISTAR">
 	</form>
+	<hr>
 
 	<c:if test="${fn:length(lista) > 0 }">
 		<table style="" border="1" bordercolor="DodgerBlue">
@@ -39,8 +39,8 @@
 					<td>${l.sobrenome}</td>
 					<td>${l.idade}</td>
 					<td>${l.email}</td>
-					<td><button >EDITAR</button></td>
-					<td><button>EXCLUIR</button> </td>
+					<td bgcolor="LightGray"><a href="editar.jsp">EDITAR</a></td>
+					<td bgcolor="LightGray"><a href="    ">EXCLUIR</a></td>
 				</tr>
 			</c:forEach>
 		</table>
