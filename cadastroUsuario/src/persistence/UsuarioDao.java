@@ -37,6 +37,28 @@ public class UsuarioDao extends Dao {
 		return lista;
 	}
 	
+	public Usuario pegarId(Integer idUsuario)throws Exception{
+		open();
+		Usuario u = null;
+		stmt = con.prepareStatement("select * from usuario where idUsuario= ?");
+		stmt.setInt(1, idUsuario);
+		
+		rs= stmt.executeQuery();
+		
+		if (rs.next()) {
+			u= new Usuario();
+			u.setIdUsuario(rs.getInt("idUsuario"));
+			u.setNome(rs.getString("nome"));
+			u.setSobrenome(rs.getString("sobrenome"));
+			u.setEmail(rs.getString("email"));
+			u.setIdade(rs.getInt("idade"));
+			
+		}
+		
+		close();
+		return u;
+	}
+	
 	public void atualizar(Usuario u)throws Exception{
 		open();
 		
@@ -52,11 +74,11 @@ public class UsuarioDao extends Dao {
 		close();
 	}
 	
-	public void deletar(Integer id)throws Exception{
+	public void deletar(Integer idUsuario)throws Exception{
 		open();
 		
 		stmt = con.prepareStatement("delete from usuario where idUsuario=? ");
-		stmt.setInt(1, id);
+		stmt.setInt(1, idUsuario);
 		
 		stmt.execute();
 		

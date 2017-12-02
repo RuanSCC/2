@@ -19,10 +19,10 @@
 		<input type="submit" value="CADASTRAR">
 
 	</form>
-	<p align="justify">
+	<p align="center">
 		<strong> ${msg } </strong>
 	</p>
-
+		
 
 </body>
 </html>

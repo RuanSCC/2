@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.Usuario;
 import persistence.UsuarioDao;
 
-@WebServlet({ "/ControleUsuario", "/cadastrar.htm", "/listar.htm", "/editar.htm" })
+@WebServlet({ "/ControleUsuario", "/cadastrar.htm", "/listar.htm", "/editar.htm", "/atualizar.htm", "/deletar.htm"})
 public class ControleUsuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -54,7 +54,8 @@ public class ControleUsuario extends HttpServlet {
 				UsuarioDao ud = new UsuarioDao();
 				ud.cadastrar(u);
 				request.setAttribute("msg", "Usuário " + nome + " cadastrado com sucesso!");
-				request.getRequestDispatcher("listar.jsp").forward(request, response);
+								
+				request.getRequestDispatcher("listar.htm").forward(request, response);
 	
 				
 			} else if ("/listar.htm".equalsIgnoreCase(url)) {
@@ -64,10 +65,15 @@ public class ControleUsuario extends HttpServlet {
 				request.setAttribute("lista", lista);
 				request.getRequestDispatcher("listar.jsp").forward(request, response);
 				
+			}else if ("/editar.htm".equalsIgnoreCase(url)) {
 				
-			} else if ("/editar.htm".equalsIgnoreCase(url)) {
-
-				Usuario usuario = new Usuario();
+				String idUsuario = request.getParameter("id");
+				UsuarioDao ud = new UsuarioDao();
+				Usuario u = ud.pegarId(new Integer(idUsuario));
+				request.setAttribute("u", u);
+				request.getRequestDispatcher("editar.jsp").forward(request, response);
+				
+			}else if ("/atualizar.htm".equalsIgnoreCase(url)) {
 
 				String idUsuario = request.getParameter("idUsuario");
 				String nome = request.getParameter("nome");
@@ -75,27 +81,27 @@ public class ControleUsuario extends HttpServlet {
 				String email = request.getParameter("email");
 				String idade = request.getParameter("idade");
 
-				usuario.setIdUsuario(new Integer(idUsuario));
-				usuario.setNome(nome);
-				usuario.setSobrenome(sobrenome);
-				usuario.setEmail(email);
-				usuario.setIdade(new Integer(idade));
+				Usuario u = new Usuario();
+				u.setIdUsuario(new Integer(idUsuario));
+				u.setNome(nome);
+				u.setSobrenome(sobrenome);
+				u.setEmail(email);
+				u.setIdade(new Integer(idade));
 
 				UsuarioDao ud = new UsuarioDao();
-				ud.atualizar(usuario);
-
-				request.setAttribute("msg", "Usuário atualizado com sucesso!!!");
-
-				request.getRequestDispatcher("editar.jsp").forward(request, response);
+				ud.atualizar(u);
+				
+				request.setAttribute("msg", "ID: "+idUsuario+", foi alterado com sucesso!!!");
+				request.getRequestDispatcher("listar.htm").forward(request, response);
 
 			} 
 			else if ("/deletar.htm".equalsIgnoreCase(url)) {
-
-				String idUsuario = request.getParameter("idUsuario");
+					
+				String idUsuario= request.getParameter("id");
 				UsuarioDao ud = new UsuarioDao();
 				ud.deletar(new Integer(idUsuario));
-
-				request.getRequestDispatcher("listar.jsp").forward(request, response);
+				
+				request.getRequestDispatcher("listar.htm").forward(request, response);
 
 			}
 

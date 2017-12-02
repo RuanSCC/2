@@ -11,18 +11,19 @@
 	<h3>Editar</h3>
 	<a href="listar.jsp">Voltar</a>
 	<hr>
+	<p align="center">
+		<strong> ${msg } </strong>
+	</p>
+	<hr>
 
-	<form action="editar.htm" method="post">
-		ID:<input type="text" name="idUsuario" value="${usuario.idUsuario }"> <br><br>
-		Nome:<input type="text" name="nome" value="${usuario.nome }"> <br><br>
-		Sobrenome:<input type="text" name="sobrenome" value="${usuario.sobrenome }"> <br><br>
-		E-Mail:<input type="text" name="email" value="${usuario.email }"> <br><br>
-		Idade:<input type="text" name="idade" value="${usuario.idade }"> <br><br>
-		<input type="submit" value="EDITAR">
-
+	<form action="atualizar.htm" method="post">
+		ID:<input type="text" name="idUsuario" readonly="readonly" value="${u.idUsuario }"> <br><br>
+		Nome:<input type="text" name="nome" value="${u.nome }"> <br><br>
+		Sobrenome:<input type="text" name="sobrenome" value="${u.sobrenome }"> <br><br>
+		E-Mail:<input type="text" name="email" value="${u.email }"> <br><br>
+		Idade:<input type="text" name="idade" value="${u.idade }"> <br><br>
+		<input type="submit" value="ATUALIZAR">
 	</form>
-	${msg }
-
 
 </body>
 </html>
